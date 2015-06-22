@@ -1,0 +1,18 @@
+[general]
+name=MongoConnector
+description=QGIS plugin to add geospatial data from mongodb database.
+category=Database
+version=0.1
+qgisMinimumVersion=2.8
+icon=images/icon.png
+author=Maciej Kamiński Politechnika Wrocławska
+email=kaminski.maciej@gmail.com
+tags=database mongodb
+homepage=
+tracker=
+repository=
+experimental=False
+deprecated=False
+changelog=Version 0.1
+    - Database connection and navigation
+    - support for lines and point geometries in collection
