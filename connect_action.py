@@ -107,8 +107,8 @@ class ConnectAction(QAction):
         except :
             #print sys.exc_info()[0]
             QMessageBox.warning(self.dlg,
-                            "Wrong geometry",
-                            "Field doesn't contain proper geometry, or improper collection",
+                            "Can't add layer",
+                            "Collection or collections geometry is improper",
                             QMessageBox.Ok)
 
     def get_info(self):
