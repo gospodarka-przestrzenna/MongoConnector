@@ -9,6 +9,7 @@ Requires pymongo>=3.0
 
 
 Features:
-- connecting to mongo
-- Errors handling
-- Addning new layer with "point" and with "lines"
+
+    - connecting to mongo
+    - Errors handling
+    - Addning new layer with "point" and with "lines"
