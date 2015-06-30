@@ -13,3 +13,10 @@ Features:
     - connecting to mongo
     - Errors handling
     - Addning new layer with "point" and with "lines"
+
+Usage:
+    - Hit connect button to view all Your databases
+    - Choose database
+    - Choose database's collection
+    - Choose collection's geometry field
+
