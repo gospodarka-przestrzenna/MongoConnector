@@ -5,8 +5,8 @@ This Qgis plugin imports data from Mongodb database into layer.
 Choose database, collection and geometry field
 to import whole collection as layer with data.
 
-Requires pymongo>=3.0
-
+Requires pymongo>=3.0 and
+mongodb>=3.0 ( https://www.mongodb.org/ )
 
 Features:
     - connecting to mongo
