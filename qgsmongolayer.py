@@ -32,6 +32,8 @@ class QgsMongoLayer(QgsVectorLayer):
         self.database=database
         self.collection = collection
         self.geometryField=str(geometryField)
+        if self.geometryField == '_id':
+            raise TypeError(" _id field may not be geometry")
         # I hope it fits into memory
         self.data=list(mongoConnector[database][collection].find())
         self.idFieldCheck(self.data[0])
@@ -39,14 +41,16 @@ class QgsMongoLayer(QgsVectorLayer):
 
         # get all keys as columns in layer data from first item
         self.featuresKeys=self.data[0].keys()
-        if not all([type(key)==str for key in self.featuresKeys]):
-            TypeError("All attribute names in feature must be string."+
+        if not all([(type(key)==str or type(key)==unicode) for key in self.featuresKeys]):
+            raise TypeError("All attribute names in feature must be string."+
                       "Check object "+str(self.reference_item_id))
+
         self.featuresKeys.remove("_id")
-
-        self.geometryType=self.getGeometryType(self.data[0])
-
         self.featuresKeys.remove(geometryField)
+
+        # We don't know geometry Yet
+        self.geometryType=None
+        self.geometryType=self.getGeometryType(self.data[0])
 
         #lets keep types and QVariants in one place
         self.featuresKeyType=dict([(key,self.getKeyType(key)[0])
@@ -54,8 +58,6 @@ class QgsMongoLayer(QgsVectorLayer):
         self.featuresKeyQVariant=dict([(key,self.getKeyType(key)[1])
                                    for key in self.featuresKeys])
 
-        # We don't know geometry Yet
-        self.geometryType=None
 
         # We take first item geometry as layer geometry (as reference)
 
@@ -179,7 +181,7 @@ class QgsMongoLayer(QgsVectorLayer):
         """
 
         if self.geometryField not in feature:
-            raise IndexError("No geometry in object"+str(feature["_id"]))
+            raise IndexError("No geometry in object "+str(feature["_id"]))
 
         try:
             if len(feature[self.geometryField])==2 and ((
