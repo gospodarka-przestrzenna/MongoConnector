@@ -104,11 +104,11 @@ class ConnectAction(QAction):
             layer=QgsMongoLayer(*self.get_info())
             QgsMapLayerRegistry.instance().addMapLayer(layer)
             self.clearComboBoxData()
-        except :
+        except Exception, e:
             #print sys.exc_info()[0]
             QMessageBox.warning(self.dlg,
                             "Can't add layer",
-                            "Collection or collections geometry is improper",
+                            "Error: "+e.message,
                             QMessageBox.Ok)
 
     def get_info(self):
