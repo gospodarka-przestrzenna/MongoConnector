@@ -5,14 +5,16 @@ about = This plugin allows you to add collection from mongodb as layer in QGIS.
         It requires pymongo>=3.0 python plugin for mongodb access ($pip install pymongo).
         For now it can add collection with points or lines geometry.
         Other data in collection are added as feature attributes.
-        As for now save to database is not supported.
+        Layer from mongodb collection is created in memory and named after collection
+        (with some random numbers). As for now save to database is not supported.
+        Please report bugs and suggestions on github issues tracker.
 category=Database
 version=1.0.0
 qgisMinimumVersion=2.8
 icon=images/icon.png
 author=Maciej Kamiński Politechnika Wrocławska
 email=kaminski.maciej@gmail.com
-tags=database mongodb mongo
+tags=database, mongodb, mongo, mongodb
 homepage=https://github.com/mk45/MongoConnector
 tracker=https://github.com/mk45/MongoConnector/issues
 repository=https://github.com/mk45/MongoConnector
