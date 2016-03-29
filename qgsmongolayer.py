@@ -56,7 +56,7 @@ class QgsMongoLayer(QgsVectorLayer):
         self.geometryType=None
 
         # We take first item geometry as layer geometry (as reference)
-        self.geometryType=self.getGeometryType(self.data[0],self.geometryField)
+        self.geometryType=self.getGeometryType(self.data[0])
 
         self.addLayer()
 
@@ -70,7 +70,7 @@ class QgsMongoLayer(QgsVectorLayer):
 
             self.idFieldCheck(feature)
 
-            if not self.geometryType == self.getGeometryType(feature,geometryField):
+            if not self.geometryType == self.getGeometryType(feature):
                 raise ValueError("Check geometry in object "+
                                  str(feature["_id"])+
                                  " or "+str(self.reference_item_id))
