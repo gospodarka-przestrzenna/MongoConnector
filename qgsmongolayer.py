@@ -177,23 +177,29 @@ class QgsMongoLayer(QgsVectorLayer):
         :param feature: one feature for witch we try to recognize geometry
         :return: 'point' for point geometry 'line' for line geometry
         """
+
         if self.geometryField not in feature:
             raise IndexError("No geometry in object"+str(feature["_id"]))
-        if len(feature[self.geometryField])==2 and ((
-                        isinstance(feature[self.geometryField][0],int) or
-                        isinstance(feature[self.geometryField][0],float)) and (
-                        isinstance(feature[self.geometryField][1],int) or
-                        isinstance(feature[self.geometryField][1],float))):
-            return "point"
 
-        if isinstance(feature[self.geometryField],list) and \
-            all([(isinstance(element,list) or isinstance(element,tuple)) and
-                    len(element)==2 and ((
-                    isinstance(element[0],int) or
-                    isinstance(element[0],float)) and (
-                    isinstance(element[1],int) or
-                    isinstance(element[1],float)))
-                 for element in feature[self.geometryField]]):
-            return "line"
+        try:
+            if len(feature[self.geometryField])==2 and ((
+                            isinstance(feature[self.geometryField][0],int) or
+                            isinstance(feature[self.geometryField][0],float)) and (
+                            isinstance(feature[self.geometryField][1],int) or
+                            isinstance(feature[self.geometryField][1],float))):
+                return "point"
+
+            if isinstance(feature[self.geometryField],list) and \
+                all([(isinstance(element,list) or isinstance(element,tuple)) and
+                        len(element)==2 and ((
+                        isinstance(element[0],int) or
+                        isinstance(element[0],float)) and (
+                        isinstance(element[1],int) or
+                        isinstance(element[1],float)))
+                     for element in feature[self.geometryField]]):
+                return "line"
+        except:
+            pass
+
 
         raise ValueError("Unknown geometry in object "+str(feature["_id"]))
