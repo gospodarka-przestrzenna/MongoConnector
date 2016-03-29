@@ -42,8 +42,10 @@ class QgsMongoLayer(QgsVectorLayer):
         if not all([type(key)==str for key in self.featuresKeys]):
             TypeError("All attribute names in feature must be string."+
                       "Check object "+str(self.reference_item_id))
-
         self.featuresKeys.remove("_id")
+
+        self.geometryType=self.getGeometryType(self.data[0])
+
         self.featuresKeys.remove(geometryField)
 
         #lets keep types and QVariants in one place
@@ -56,7 +58,6 @@ class QgsMongoLayer(QgsVectorLayer):
         self.geometryType=None
 
         # We take first item geometry as layer geometry (as reference)
-        self.geometryType=self.getGeometryType(self.data[0])
 
         self.addLayer()
 
@@ -178,20 +179,20 @@ class QgsMongoLayer(QgsVectorLayer):
         """
         if self.geometryField not in feature:
             raise IndexError("No geometry in object"+str(feature["_id"]))
-        if len(feature[self.geometryField])==2 and (
+        if len(feature[self.geometryField])==2 and ((
                         isinstance(feature[self.geometryField][0],int) or
-                        isinstance(feature[self.geometryField][0],float) or
+                        isinstance(feature[self.geometryField][0],float)) and (
                         isinstance(feature[self.geometryField][1],int) or
-                        isinstance(feature[self.geometryField][1],float)):
+                        isinstance(feature[self.geometryField][1],float))):
             return "point"
 
         if isinstance(feature[self.geometryField],list) and \
             all([(isinstance(element,list) or isinstance(element,tuple)) and
-                    len(element)==2 and (
+                    len(element)==2 and ((
                     isinstance(element[0],int) or
-                    isinstance(element[0],float) or
+                    isinstance(element[0],float)) and (
                     isinstance(element[1],int) or
-                    isinstance(element[1],float))
+                    isinstance(element[1],float)))
                  for element in feature[self.geometryField]]):
             return "line"
 
