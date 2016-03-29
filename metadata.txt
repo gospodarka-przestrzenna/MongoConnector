@@ -7,7 +7,7 @@ about = This plugin allows you to add collection from mongodb as layer in QGIS.
         Other data in collection are added as feature attributes.
         As for now save to database is not supported.
 category=Database
-version=0.1.1
+version=1.0.0
 qgisMinimumVersion=2.8
 icon=images/icon.png
 author=Maciej Kamiński Politechnika Wrocławska
@@ -18,7 +18,11 @@ tracker=https://github.com/mk45/MongoConnector/issues
 repository=https://github.com/mk45/MongoConnector
 experimental=False
 deprecated=False
-changelog=Version 0.1.1
+changelog=
+Version 0.1.1
     - Database connection and navigation
     - support for lines and point geometries in collection
     - proper upload to QGIS plugins repository
+Version 1.0.0
+    - New error reporting style
+    - reports precise error messages about missing geometries and fields
