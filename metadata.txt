@@ -20,8 +20,7 @@ tracker=https://github.com/mk45/MongoConnector/issues
 repository=https://github.com/mk45/MongoConnector
 experimental=False
 deprecated=False
-changelog=
-Version 0.1.1
+changelog=Version 0.1.1
     - Database connection and navigation
     - support for lines and point geometries in collection
     - proper upload to QGIS plugins repository
