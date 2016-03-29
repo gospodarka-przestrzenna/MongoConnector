@@ -158,7 +158,7 @@ class QgsMongoLayer(QgsVectorLayer):
         attributes=[]
         for key in self.featuresKeys:
             try:
-                attrib=self.featuresKeyType[key][0](feature[key])
+                attrib=self.featuresKeyType[key](feature[key])
             except UnicodeEncodeError as e:
                 # if unicode we simply pass it (it's a string)
                 attrib = feature[key]
