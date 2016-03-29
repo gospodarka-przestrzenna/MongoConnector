@@ -101,10 +101,11 @@ class ConnectAction(QAction):
         :return:
         """
         try:
+            #self.dlg.connectionStatus.setText("Loading data please be patient")
             layer=QgsMongoLayer(*self.get_info())
             QgsMapLayerRegistry.instance().addMapLayer(layer)
             self.clearComboBoxData()
-        except Exception, e:
+        except Exception as e:
             #print sys.exc_info()[0]
             QMessageBox.warning(self.dlg,
                             "Can't add layer",
@@ -118,7 +119,7 @@ class ConnectAction(QAction):
         it might be databases list
         it might be collections if db is set
         it might be fields if two previous are set
-        it might be whole collection if everything is set
+        it might be tuple with all above if everything is set
         """
         self.dlg.connectionStatus.setText("Connecting...")
         # repainting without delay
