@@ -168,7 +168,7 @@ class ConnectAction(QAction):
         self.dlg.geometryFieldBox.setEnabled(False)
         self.dlg.geometryFieldBox.clear()
         self.dlg.geojsonCheckBox.setEnabled(False)
-        self.dlg.geojsonCheckBox.setChecked(False)
+        self.dlg.geojsonCheckBox.setCheckState(Qt.Unchecked)
 
 
     def run(self):
