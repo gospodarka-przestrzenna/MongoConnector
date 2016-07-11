@@ -3,13 +3,21 @@ name=MongoConnector
 description=QGIS plugin to add geospatial data from mongodb database.
 about = This plugin allows you to add collection from mongodb as layer in QGIS.
         It requires pymongo>=3.0 python plugin for mongodb access ($pip install pymongo).
-        For now it can add collection with points or lines geometry.
-        Other data in collection are added as feature attributes.
+
         Layer from mongodb collection is created in memory and named after collection
         (with some random numbers). As for now save to database is not supported.
         Please report bugs and suggestions on github issues tracker.
+
+        To use it just click connect button. Choose database and collection. Finally
+        Mark if geometry is like in geojson or pick proper field with geometry.
+        If geojson-style than all the geometry types are supported otherwise
+        points / lines geometries only. Other data in collection are added as
+        feature attributes. Data in "properties" field can be used as data
+        if key was found. See examples for details.
+
+
 category=Database
-version=1.0.0
+version=1.1.0
 qgisMinimumVersion=2.8
 icon=images/icon.png
 author=Maciej Kamiński Politechnika Wrocławska
@@ -20,7 +28,14 @@ tracker=https://github.com/mk45/MongoConnector/issues
 repository=https://github.com/mk45/MongoConnector
 experimental=False
 deprecated=False
-changelog=Version 1.0.0
+changelog=Version 1.1.0
+    - New geojson geometry style support
+    - All types of geometry for geojson added!
+Version 1.0.0
     - New error reporting style
     - reports precise error messages about missing geometries and fields
     - minor bugfixes
+Version 0.1.1
+    - Database connection and navigation
+    - support for lines and point geometries in collection
+    - proper upload to QGIS plugins repository
