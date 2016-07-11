@@ -46,6 +46,7 @@ class ConnectAction(QAction):
         self.dlg.databaseBox.activated[str].connect(self.database_box_change)
         self.dlg.collectionBox.activated[str].connect(self.collection_box_change)
         self.dlg.geometryFieldBox.activated[str].connect(self.geometry_field_box_change)
+        self.dlg.geojsonCheckBox.stateChanged(self.geojson_check_box_changed)
 
     def reconnect(self):
         """
@@ -54,10 +55,8 @@ class ConnectAction(QAction):
         """
         self.dlg.databaseBox.setEnabled(False)
         self.dlg.databaseBox.clear()
-        self.dlg.collectionBox.setEnabled(False)
-        self.dlg.collectionBox.clear()
-        self.dlg.geometryFieldBox.setEnabled(False)
-        self.dlg.geometryFieldBox.clear()
+        self.clearComboBoxData()
+
         dbs = self.get_info()
         if dbs:
             self.dlg.databaseBox.addItems(dbs)
@@ -92,9 +91,13 @@ class ConnectAction(QAction):
         if fields:
             self.dlg.geometryFieldBox.addItems(fields)
             self.dlg.geometryFieldBox.setEnabled(True)
+        if "geometry" in fields:
+            self.dlg.geojsonCheckBox.setEnabled(True)
 
+    def geojson_check_box_changed(self,check_state):
+        self.geometry_field_box_change("")
 
-    def geometry_field_box_change(self,text):
+    def geometry_field_box_change(self,_):
         """
         When geometry field chose add new layer. Print message when unsuccessful
         :param text:
@@ -142,9 +145,14 @@ class ConnectAction(QAction):
                         # we assume that geometry field is in every document
                         output = mc[db][coll].find_one().keys()
                     else:
-                        geom_field=self.dlg.geometryFieldBox.currentText()
-                        # I hope it fits into memory
-                        output=(mc,db,coll,geom_field)
+                        if not Qt.Checked == self.dlg.geojsonCheckBox.checkState():
+                            geom_field=self.dlg.geometryFieldBox.currentText()
+                            # I hope it fits into memory
+                            output=(mc,db,coll,geom_field,"default")
+                        else:
+                            output=(mc,db,coll,"geometry","geojson")
+
+
             self.dlg.connectionStatus.setText("Connected")
         except:
             # on fail we clear all gathered data connection has to be reestablished first
@@ -159,6 +167,9 @@ class ConnectAction(QAction):
         self.dlg.collectionBox.clear()
         self.dlg.geometryFieldBox.setEnabled(False)
         self.dlg.geometryFieldBox.clear()
+        self.dlg.geojsonCheckBox.setEnabled(False)
+        self.dlg.geojsonCheckBox.setChecked(False)
+
 
     def run(self):
         """
