@@ -95,8 +95,9 @@ class ConnectAction(QAction):
             self.dlg.geojsonCheckBox.setEnabled(True)
 
     def geojson_check_box_changed(self,check_state):
-        print "state changed!"
-        self.geometry_field_box_change("")
+        print "state changed"
+        if Qt.Checked==self.dlg.geojsonCheckBox.checkState():
+            self.geometry_field_box_change("")
 
     def geometry_field_box_change(self,_):
         """
