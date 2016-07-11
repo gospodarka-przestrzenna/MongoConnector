@@ -106,7 +106,10 @@ class ConnectAction(QAction):
         try:
             #self.dlg.connectionStatus.setText("Loading data please be patient")
             layer=QgsMongoLayer(*self.get_info())
+            print "layer done"
             QgsMapLayerRegistry.instance().addMapLayer(layer)
+            print "layer added"
+
             self.clearComboBoxData()
         except Exception as e:
             #print sys.exc_info()[0]
