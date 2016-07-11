@@ -95,6 +95,7 @@ class ConnectAction(QAction):
             self.dlg.geojsonCheckBox.setEnabled(True)
 
     def geojson_check_box_changed(self,check_state):
+        print "state changed!"
         self.geometry_field_box_change("")
 
     def geometry_field_box_change(self,_):
@@ -105,6 +106,7 @@ class ConnectAction(QAction):
         """
         try:
             layer_info=self.get_info()
+            print layer_info
             self.clearComboBoxData()
             layer=QgsMongoLayer(*layer_info)
             QgsMapLayerRegistry.instance().addMapLayer(layer)
