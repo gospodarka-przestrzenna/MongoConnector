@@ -104,13 +104,10 @@ class ConnectAction(QAction):
         :return:
         """
         try:
-            #self.dlg.connectionStatus.setText("Loading data please be patient")
-            layer=QgsMongoLayer(*self.get_info())
-            print "layer done"
-            QgsMapLayerRegistry.instance().addMapLayer(layer)
-            print "layer added"
-
+            layer_info=self.get_info()
             self.clearComboBoxData()
+            layer=QgsMongoLayer(*layer_info)
+            QgsMapLayerRegistry.instance().addMapLayer(layer)
         except Exception as e:
             #print sys.exc_info()[0]
             QMessageBox.warning(self.dlg,
@@ -150,11 +147,9 @@ class ConnectAction(QAction):
                     else:
                         if not Qt.Checked == self.dlg.geojsonCheckBox.checkState():
                             geom_field=self.dlg.geometryFieldBox.currentText()
-                            # I hope it fits into memory
                             output=(mc,db,coll,geom_field,"default")
                         else:
                             output=(mc,db,coll,"geometry","geojson")
-
 
             self.dlg.connectionStatus.setText("Connected")
         except:
