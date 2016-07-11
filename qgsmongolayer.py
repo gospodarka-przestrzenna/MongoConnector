@@ -39,8 +39,10 @@ class QgsMongoLayer(QgsVectorLayer):
         self.data=list(mongoConnector[database][collection].find())
         self.idFieldCheck(self.data[0])
         self.reference_item_id=self.data[0]["_id"]
+        self.reference_item=self.data[0]
 
         self.featuresKeys=self.getFeatureKeys(self.data[0])
+        print self.featuresKeys
 
         if not all([(type(key)==str or type(key)==unicode) for key in self.featuresKeys]):
             raise TypeError("All attribute names in feature must be string."+
@@ -163,10 +165,10 @@ class QgsMongoLayer(QgsVectorLayer):
         :return: tuple (base type , QVariant type)
         """
 
-        if type(self.data[0][key]) is int:
+        if type(self.getFeatureValue(self.data[0],key)) is int:
             return (int,QVariant.Int)
 
-        if type(self.data[0][key]) is float:
+        if type(self.getFeatureValue(self.data[0],key)) is float:
             return (float,QVariant.Double)
 
         # we try to put lists and other strange objects to str
