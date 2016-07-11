@@ -9,10 +9,12 @@ Requires pymongo>=3.0 and
 mongodb>=3.0 ( https://www.mongodb.org/ )
 
 Features:
-    - connecting to mongo
+    - Connecting to mongo
     - Errors handling
+    - Adding features
     - It supports all geometry types if they are in geojson format
-    - Adding new layer with "point" and with "lines"
+    - Otherwise new layer with "point" or with "lines" can be added
+    - Geojson "properties" features are also supported
 
 Usage:
     - Hit connect button to view all Your databases
@@ -21,3 +23,4 @@ Usage:
     - Choose if geometry is in geojson format or ...
     - Choose geometry field in collection
 
+Please refer data example for more details.
