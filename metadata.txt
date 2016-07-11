@@ -27,11 +27,11 @@ deprecated=False
 changelog=Version 1.1.0
     - New geojson geometry style support
     - All types of geometry for geojson added!
-Version 1.0.0
+    Version 1.0.0
     - New error reporting style
     - reports precise error messages about missing geometries and fields
     - minor bugfixes
-Version 0.1.1
+    Version 0.1.1
     - Database connection and navigation
     - support for lines and point geometries in collection
     - proper upload to QGIS plugins repository
