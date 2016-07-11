@@ -133,7 +133,7 @@ class QgsMongoLayer(QgsVectorLayer):
         :param feature: feature to chceck
         :return: None
         """
-        if "_id" not in feature:
+        if "_id" not in feature.keys():
             raise ValueError("'_id' field must be an objects identifier."+
                              "Not found in "+str(self.data[0]))
 
@@ -220,7 +220,7 @@ class QgsMongoLayer(QgsVectorLayer):
         :param feature: one feature for witch we try to recognize geometry
         :return: 'point' for point geometry 'line' for line geometry
         """
-        if self.geometryField not in feature:
+        if self.geometryField not in feature.keys():
             raise IndexError("No geometry in object "+str(feature["_id"]))
         if self.geometryFieldType == "geojson":
             if "type" not in feature[self.geometryField]:
