@@ -118,6 +118,8 @@ class QgsMongoLayer(QgsVectorLayer):
                         for ring in polygon]
                             for polygon in geometryList
                 ]))
+            else:
+                raise TypeError("Unknown geometry in feature "+str(feature["_id"]))
 
             qfeature.setAttributes(self.createAttributes(feature))
 
