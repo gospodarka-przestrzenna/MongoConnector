@@ -173,13 +173,13 @@ class QgsMongoLayer(QgsVectorLayer):
         return (str,QVariant.String)
 
     def getFeatureKeys(self,feature):
-        if self.geometryFieldType=="geojson" and "properties" in feature:
+        if self.geometryFieldType=="geojson" and "properties" in feature.keys():
             return feature["properties"].keys()
         else:
             return feature.keys()
 
     def getFeatureValue(self,feature,key):
-        if self.geometryFieldType=="geojson" and "properties" in feature:
+        if self.geometryFieldType=="geojson" and "properties" in feature.keys():
             return feature["properties"][key]
         else:
             return feature[key]
