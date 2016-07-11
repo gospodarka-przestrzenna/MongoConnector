@@ -12,7 +12,6 @@ db.mongoConnectorSampleGeoJsonCollection.insert(
   "geometry":
   { "type": "Point", "coordinates": [ 5825988.674041865393519, 5585671.816971934400499 ] }
 })
-
 db.mongoConnectorSampleGeoJsonCollectionPolygon.insert(
 { "ID":1,
   "properties":
