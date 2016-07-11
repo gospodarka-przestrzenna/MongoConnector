@@ -46,7 +46,7 @@ class ConnectAction(QAction):
         self.dlg.databaseBox.activated[str].connect(self.database_box_change)
         self.dlg.collectionBox.activated[str].connect(self.collection_box_change)
         self.dlg.geometryFieldBox.activated[str].connect(self.geometry_field_box_change)
-        self.dlg.geojsonCheckBox.stateChanged(self.geojson_check_box_changed)
+        self.dlg.geojsonCheckBox.stateChanged.connect(self.geojson_check_box_changed)
 
     def reconnect(self):
         """
