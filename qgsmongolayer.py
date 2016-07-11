@@ -46,8 +46,11 @@ class QgsMongoLayer(QgsVectorLayer):
             raise TypeError("All attribute names in feature must be string."+
                       "Check object "+str(self.reference_item_id))
 
-        self.featuresKeys.remove("_id")
-        self.featuresKeys.remove(geometryField)
+        if "_id" in self.featuresKeys:
+            self.featuresKeys.remove("_id")
+
+        if geometryField in self.featuresKeys:
+            self.featuresKeys.remove(geometryField)
 
         # We don't know geometry Yet
         self.geometryType=None
