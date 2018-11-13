@@ -19,7 +19,7 @@
 # 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 #
 ###############################################################################
-__author__ = 'Maciej Kamiński Politechnika Wrocławska'
+__author__ = 'Maciej Kamiński Politechnika Wrocławska and Fernando Ferreira Passe'
 
 from PyQt5.QtWidgets import QAction,QMessageBox,QApplication
 from PyQt5.QtCore import Qt, QBasicTimer
