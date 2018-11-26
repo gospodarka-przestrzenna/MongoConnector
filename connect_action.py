@@ -1,7 +1,8 @@
 # -*- coding: utf-8 -*-
 ###############################################################################
 #
-# Copyright (C) 2015 Maciej Kamiński (kaminski.maciej@gmail.com) Politechnika Wrocławska
+# Copyright (C) 2018 Maciej Kamiński (kaminski.maciej@gmail.com) Politechnika Wrocławska
+#                    Fernando Passe (fernando.passe@ufv.br) Universidade Federal de Viçosa
 #
 # This source is free software; you can redistribute it and/or modify it under
 # the terms of the GNU General Public License as published by the Free
@@ -18,14 +19,13 @@
 # 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 #
 ###############################################################################
-__author__ = 'Maciej Kamiński Politechnika Wrocławska'
+__author__ = 'Maciej Kamiński Politechnika Wrocławska and Fernando Ferreira Passe'
 
-
-from PyQt4.QtGui import QAction,QMessageBox,QApplication
-from PyQt4.QtCore import Qt,QBasicTimer
-from maindialog import MongoConnectorDialog
-from qgsmongolayer import QgsMongoLayer
-from qgis.core import QgsMapLayerRegistry
+from PyQt5.QtWidgets import QAction,QMessageBox,QApplication
+from PyQt5.QtCore import Qt, QBasicTimer
+from .maindialog import MongoConnectorDialog
+from .qgsmongolayer import QgsMongoLayer
+from qgis.core import *
 from pymongo import MongoClient
 
 class ConnectAction(QAction):
@@ -95,7 +95,7 @@ class ConnectAction(QAction):
             self.dlg.geojsonCheckBox.setEnabled(True)
 
     def geojson_check_box_changed(self,check_state):
-        print "state changed"
+        print("state changed")
         if Qt.Checked==self.dlg.geojsonCheckBox.checkState():
             self.geometry_field_box_change("")
 
@@ -107,15 +107,15 @@ class ConnectAction(QAction):
         """
         try:
             layer_info=self.get_info()
-            print layer_info
+            print(layer_info)
             self.clearComboBoxData()
             layer=QgsMongoLayer(*layer_info)
-            QgsMapLayerRegistry.instance().addMapLayer(layer)
+            QgsProject.instance().addMapLayer(layer)
         except Exception as e:
             #print sys.exc_info()[0]
             QMessageBox.warning(self.dlg,
                             "Can't add layer",
-                            "Error: "+e.message,
+                            "Error: " + str(e),
                             QMessageBox.Ok)
 
     def get_info(self):
@@ -136,11 +136,11 @@ class ConnectAction(QAction):
         try:
             mc=self.mongo_client
             if not self.dlg.databaseBox.isEnabled():
-                output = mc.database_names()
+                output = mc.list_database_names()
             else:
                 db=self.dlg.databaseBox.currentText()
                 if not self.dlg.collectionBox.isEnabled():
-                    output = mc[db].collection_names(include_system_collections=False)
+                    output = mc[db].list_collection_names()
 
                 else:
                     coll=self.dlg.collectionBox.currentText()

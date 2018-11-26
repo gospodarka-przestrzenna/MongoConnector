@@ -1,7 +1,8 @@
 # -*- coding: utf-8 -*-
 ###############################################################################
 #
-# Copyright (C) 2015 Maciej Kamiński (kaminski.maciej@gmail.com) Politechnika Wrocławska
+# Copyright (C) 2018 Maciej Kamiński (kaminski.maciej@gmail.com) Politechnika Wrocławska
+#                    Fernando Passe (fernando.passe@ufv.br) Universidade Federal de Viçosa
 #
 # This source is free software; you can redistribute it and/or modify it under
 # the terms of the GNU General Public License as published by the Free
@@ -18,11 +19,12 @@
 # 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 #
 ###############################################################################
-__author__ = 'Maciej Kamiński Politechnika Wrocławska'
+__author__ = 'Maciej Kamiński Politechnika Wrocławska and Fernando Ferreira Passe'
 
 from os import path
-from PyQt4.QtGui import QIcon,QMessageBox
-from connect_action import ConnectAction
+from PyQt5.QtWidgets import QMessageBox
+from PyQt5.QtGui import QIcon
+from .connect_action import ConnectAction
 
 class MongoConnectorPlugin(object):
     def __init__(self,iface):

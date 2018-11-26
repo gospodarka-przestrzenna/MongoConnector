@@ -1,7 +1,8 @@
 # -*- coding: utf-8 -*-
 ###############################################################################
 #
-# Copyright (C) 2015 Maciej Kamiński (kaminski.maciej@gmail.com) Politechnika Wrocławska
+# Copyright (C) 2018 Maciej Kamiński (kaminski.maciej@gmail.com) Politechnika Wrocławska
+#                    Fernando Passe (fernando.passe@ufv.br) Universidade Federal de Viçosa
 #
 # This source is free software; you can redistribute it and/or modify it under
 # the terms of the GNU General Public License as published by the Free
@@ -18,10 +19,10 @@
 # 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 #
 ###############################################################################
-__author__ = 'Maciej Kamiński Politechnika Wrocławska'
+__author__ = 'Maciej Kamiński Politechnika Wrocławska and Fernando Ferreira Passe'
 
-from qgis.core import QgsVectorLayer,QgsField,QgsFeature,QgsGeometry,QgsPoint,QgsMapLayerRegistry
-from PyQt4.QtCore import  QVariant
+from qgis.core import *
+from PyQt5.QtCore import  QVariant
 import uuid
 
 
@@ -42,7 +43,7 @@ class QgsMongoLayer(QgsVectorLayer):
         self.reference_item=self.data[0]
 
         self.featuresKeys=self.getFeatureKeys(self.data[0])
-        print self.featuresKeys
+        print(self.featuresKeys)
 
         if not all([(type(key)==str or type(key)==unicode) for key in self.featuresKeys]):
             raise TypeError("All attribute names in feature must be string."+
@@ -91,30 +92,30 @@ class QgsMongoLayer(QgsVectorLayer):
 
 
             if self.geometryType=="Point":
-                qfeature.setGeometry(QgsGeometry.fromPoint(
-                    QgsPoint(*geometryList)
+                qfeature.setGeometry(QgsGeometry.fromPointXY(
+                    QgsPointXY(*geometryList)
                 ))
             elif self.geometryType== "LineString":
                 qfeature.setGeometry(QgsGeometry.fromPolyline([
                     QgsPoint(*pt) for pt in geometryList
                 ]))
             elif self.geometryType== "Polygon":
-                qfeature.setGeometry(QgsGeometry.fromPolygon([
-                    [QgsPoint(*pt) for pt in ring]
+                qfeature.setGeometry(QgsGeometry.fromPolygonXY([
+                    [QgsPointXY(*pt) for pt in ring]
                         for ring in geometryList
                 ]))
             elif self.geometryType== "MultiPoint":
                 qfeature.setGeometry(QgsGeometry.fromMultiPoint([
-                    QgsPoint(*pt) for pt in geometryList
+                    QgsPointXY(*pt) for pt in geometryList
                 ]))
             elif self.geometryType== "MultiLineString":
                 qfeature.setGeometry(QgsGeometry.fromMultiPolyline([
-                    [QgsPoint(*pt) for pt in line]
+                    [QgsPointXY(*pt) for pt in line]
                         for line in geometryList
                 ]))
             elif self.geometryType== "MultiPolygon":
                 qfeature.setGeometry(QgsGeometry.fromMultiPolygon([
-                    [[QgsPoint(*pt) for pt in ring]
+                    [[QgsPointXY(*pt) for pt in ring]
                         for ring in polygon]
                             for polygon in geometryList
                 ]))
@@ -177,11 +178,11 @@ class QgsMongoLayer(QgsVectorLayer):
         return (str,QVariant.String)
 
     def getFeatureKeys(self,feature):
-        print self.geometryFieldType,feature.keys()
+        print(self.geometryFieldType,feature.keys())
         if self.geometryFieldType=="geojson" and "properties" in feature.keys():
-            return feature["properties"].keys()
+            return list(feature["properties"].keys())
         else:
-            return feature.keys()
+            return list(feature.keys())
 
     def getFeatureValue(self,feature,key):
         if self.geometryFieldType=="geojson" and "properties" in feature.keys():

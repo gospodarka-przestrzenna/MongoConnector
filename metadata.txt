@@ -14,10 +14,10 @@ about = This plugin allows you to add collection from mongodb as layer in QGIS.
         if key was found. See examples for details.
 category=Database
 version=1.1.0
-qgisMinimumVersion=2.8
+qgisMinimumVersion=3.0
 icon=images/icon.png
 author=Maciej Kamiński Politechnika Wrocławska
-email=kaminski.maciej@gmail.com
+email=kaminski.maciej@gmail.com, fernando.passe@ufv.br
 tags=database, mongodb, mongo
 homepage=https://github.com/mk45/MongoConnector
 tracker=https://github.com/mk45/MongoConnector/issues
