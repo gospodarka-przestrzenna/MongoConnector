@@ -24,7 +24,9 @@ tracker=https://github.com/mk45/MongoConnector/issues
 repository=https://github.com/mk45/MongoConnector
 experimental=False
 deprecated=False
-changelog=Version 1.1.0
+changelog=Version 1.1.1
+    - Update plugin to work with QGIS version >=3.0(by Fernando Passe)
+    Version 1.1.0
     - New geojson geometry style support
     - All types of geometry for geojson added!
     Version 1.0.0
