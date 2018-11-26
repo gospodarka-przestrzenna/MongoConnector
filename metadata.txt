@@ -13,7 +13,7 @@ about = This plugin allows you to add collection from mongodb as layer in QGIS.
         feature attributes. Data in "properties" field can be used as data
         if key was found. See examples for details.
 category=Database
-version=1.1.1
+version=1.2.0
 qgisMinimumVersion=3.0
 icon=images/icon.png
 author=Maciej Kamiński Politechnika Wrocławska
@@ -24,7 +24,9 @@ tracker=https://github.com/mk45/MongoConnector/issues
 repository=https://github.com/mk45/MongoConnector
 experimental=False
 deprecated=False
-changelog=Version 1.1.1
+changelog=Version 1.2.0
+    - Create better looking icon (by Fernando Passe)
+    Version 1.1.1
     - Update plugin to work with QGIS version >=3.0(by Fernando Passe)
     Version 1.1.0
     - New geojson geometry style support
