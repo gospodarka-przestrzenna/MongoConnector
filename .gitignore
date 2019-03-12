@@ -59,4 +59,6 @@ docs/_build/
 # PyBuilder
 target/
 
-
+#mac dependant
+.DS_Store
+*.DS_Store
