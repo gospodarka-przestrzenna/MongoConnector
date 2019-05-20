@@ -96,7 +96,7 @@ class QgsMongoLayer(QgsVectorLayer):
                     QgsPointXY(*geometryList)
                 ))
             elif self.geometryType== "LineString":
-                qfeature.setGeometry(QgsGeometry.fromPolyline([
+                qfeature.setGeometry(QgsGeometry.fromPolylineXY([
                     QgsPoint(*pt) for pt in geometryList
                 ]))
             elif self.geometryType== "Polygon":
@@ -105,16 +105,16 @@ class QgsMongoLayer(QgsVectorLayer):
                         for ring in geometryList
                 ]))
             elif self.geometryType== "MultiPoint":
-                qfeature.setGeometry(QgsGeometry.fromMultiPoint([
+                qfeature.setGeometry(QgsGeometry.fromMultiPointXY([
                     QgsPointXY(*pt) for pt in geometryList
                 ]))
             elif self.geometryType== "MultiLineString":
-                qfeature.setGeometry(QgsGeometry.fromMultiPolyline([
+                qfeature.setGeometry(QgsGeometry.fromMultiPolylineXY([
                     [QgsPointXY(*pt) for pt in line]
                         for line in geometryList
                 ]))
             elif self.geometryType== "MultiPolygon":
-                qfeature.setGeometry(QgsGeometry.fromMultiPolygon([
+                qfeature.setGeometry(QgsGeometry.fromMultiPolygonXY([
                     [[QgsPointXY(*pt) for pt in ring]
                         for ring in polygon]
                             for polygon in geometryList
