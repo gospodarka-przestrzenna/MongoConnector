@@ -24,3 +24,6 @@ Usage:
     - Choose geometry field in collection
 
 Please refer data example for more details.
+
+
+Currently we look for changes made by https://github.com/soohwan-hyun/MongoConnector
