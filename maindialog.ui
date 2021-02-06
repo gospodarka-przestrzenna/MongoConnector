@@ -36,9 +36,12 @@
        <locale language="C" country="AnyCountry"/>
       </property>
       <property name="text">
-       <string>Connect to start</string>
+       <string>Provide connection string to connect</string>
       </property>
      </widget>
+    </item>
+    <item>
+     <widget class="QPlainTextEdit" name="connStringEdit"/>
     </item>
     <item>
      <widget class="QPushButton" name="connectButton">
@@ -127,6 +130,7 @@
    <zorder>geojsonCheckBox</zorder>
    <zorder>connectionStatus</zorder>
    <zorder>databaseBox</zorder>
+   <zorder>connStringEdit</zorder>
   </widget>
  </widget>
  <tabstops>

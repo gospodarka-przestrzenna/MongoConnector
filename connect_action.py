@@ -27,6 +27,9 @@ from .maindialog import MongoConnectorDialog
 from .qgsmongolayer import QgsMongoLayer
 from qgis.core import *
 from pymongo import MongoClient
+import json
+import os
+import tempfile
 
 class ConnectAction(QAction):
     """
@@ -35,11 +38,17 @@ class ConnectAction(QAction):
     def __init__(self,plugin):
         super(ConnectAction,self).__init__(plugin.qicon,"Connect",plugin.iface.mainWindow())
         self.triggered.connect(self.run)
-
+        self.conf_file=os.path.join(os.path.expanduser('~'),".MongoConnector_config.json")
         self.plugin=plugin
         self.iface=plugin.iface
         self.dlg=MongoConnectorDialog()
-        self.mongo_client=MongoClient(serverSelectionTimeoutMS=2000)
+
+        self.connectionString = "localhost"
+        if ( os.path.isfile(self.conf_file) is True ):
+            with open(self.conf_file, "r") as f:
+                self.connectionString = json.load(f)["connection_string"]
+
+        self.mongo_client=MongoClient(self.connectionString, serverSelectionTimeoutMS=2000)
 
         # binding frontend actions with logic
         self.dlg.connectButton.clicked.connect(self.reconnect)
@@ -47,12 +56,18 @@ class ConnectAction(QAction):
         self.dlg.collectionBox.activated[str].connect(self.collection_box_change)
         self.dlg.geometryFieldBox.activated[str].connect(self.geometry_field_box_change)
         self.dlg.geojsonCheckBox.stateChanged.connect(self.geojson_check_box_changed)
+        self.dlg.connStringEdit.appendPlainText(self.connectionString)
+
 
     def reconnect(self):
         """
         Fill available databases to combobox
         :return:
         """
+
+        self.connectionString = self.dlg.connStringEdit.toPlainText()
+        self.mongo_client=MongoClient(self.connectionString, serverSelectionTimeoutMS=2000)
+
         self.dlg.databaseBox.setEnabled(False)
         self.dlg.databaseBox.clear()
         self.clearComboBoxData()
@@ -61,7 +76,8 @@ class ConnectAction(QAction):
         if dbs:
             self.dlg.databaseBox.addItems(dbs)
             self.dlg.databaseBox.setEnabled(True)
-
+        with open(self.conf_file, "w") as f:
+            json.dump({"connection_string": self.connectionString }, f)
 
     def database_box_change(self,text):
         """
