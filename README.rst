@@ -28,6 +28,6 @@ Usage:
 Please refer data example for more details.
 
 
-Thanks to:
+Special thanks to contributors: 
     - fernando.passe@ufv.br
     - soohwan-hyun
