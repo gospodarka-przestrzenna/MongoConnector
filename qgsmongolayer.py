@@ -97,7 +97,7 @@ class QgsMongoLayer(QgsVectorLayer):
                 ))
             elif self.geometryType== "LineString":
                 qfeature.setGeometry(QgsGeometry.fromPolylineXY([
-                    QgsPoint(*pt) for pt in geometryList
+                    QgsPointXY(*pt) for pt in geometryList
                 ]))
             elif self.geometryType== "Polygon":
                 qfeature.setGeometry(QgsGeometry.fromPolygonXY([
